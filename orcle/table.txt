@@ -1,0 +1,101 @@
+DROP Table TBLCOUNTRY;
+DROP Table TblState;
+DROP Table TblCity;
+DROP Table TblAddress;
+DROP Table TblOccupation;
+DROP Table TblRelation;
+DROP Table TblFamily;
+DROP Table TblLogin;
+DROP Table TblMember;
+CREATE TABLE TBLCOUNTRY
+(
+	COUNTRYID NUMBER(22 , 0) NOT NULL,
+	COUNTRYNAME VARCHAR2(21) NOT NULL,
+	CONSTRAINT PK_country_id PRIMARY KEY (CountryID)
+);
+CREATE TABLE TblState
+(
+	StateID NUMBER(22 , 0) NOT NULL,
+	StateName varchar2(21) NOT NULL,
+	CountryId NUMBER(22 , 0) NOT NULL,
+	CONSTRAINT PK_State_id PRIMARY KEY (StateID),
+	CONSTRAINT fk_statecountry FOREIGN KEY (CountryId) REFERENCES TblCountry(CountryID)
+);
+CREATE TABLE TblCity
+(
+	CityID NUMBER(22 , 0) NOT NULL,
+	CityName varchar2(21) NOT NULL,
+	StateId NUMBER(22 , 0) NOT NULL,
+	CONSTRAINT PK_City_id PRIMARY KEY (CityID),
+	CONSTRAINT fk_citystate FOREIGN KEY (StateId) REFERENCES TblState(StateID)
+);
+CREATE TABLE TblAddress
+(
+	AddressID NUMBER(22 , 0) NOT NULL,
+	Street varchar2(256) NULL,
+	Area varchar2(256) NULL,
+	CityId NUMBER(22,0) NOT NULL,
+	Pincode varchar2(10) NULL,
+	CONSTRAINT PK_Address_id PRIMARY KEY (AddressID),
+	CONSTRAINT fk_addresscity FOREIGN KEY (CityId) REFERENCES TblCity(CityID)
+);
+CREATE TABLE TblOccupation
+(
+	OccupationID NUMBER(22 , 0) NOT NULL,
+	OccupationName varchar2(21) NOT NULL,
+	CONSTRAINT PK_Occupation_id PRIMARY KEY (OccupationID)
+);
+CREATE TABLE TblRelation
+(
+	RelationID NUMBER(22 , 0) NOT NULL,
+	RelationName varchar2(21) NOT NULL,
+	CONSTRAINT PK_Relation_id PRIMARY KEY (RelationID)
+);
+CREATE TABLE TblFamily
+(
+	FamilyID NUMBER(22,0) NOT NULL,
+	NativeAddress varchar2(251) NULL,
+	CurrentAddressID NUMBER(22,0) NULL,
+	CONSTRAINT PK_Family_id PRIMARY KEY (FamilyID),	
+	CONSTRAINT fk_familyCurrentAddress FOREIGN KEY (CurrentAddressId) REFERENCES TblAddress(AddressID)
+);
+CREATE TABLE TblLogin
+(
+	LoginID NUMBER(22 , 0) NOT NULL,
+	Username varchar2(21) NOT NULL,
+	Password varchar2(51) NOT NULL,
+	UserType NUMBER(22 , 0) NOT NULL,
+	FamilyId NUMBER(22 , 0) NULL,
+	CONSTRAINT PK_Login_id PRIMARY KEY (LoginID),
+	CONSTRAINT fk_loginFamily FOREIGN KEY (FamilyId) REFERENCES TblFamily(FamilyID)
+);
+CREATE TABLE TblMember
+(
+	MemberID NUMBER(22,0) NOT NULL,
+	FirstName varchar2(51) NOT NULL,
+	MiddleName varchar2(51) NOT NULL,
+	LastName varchar2(51) NOT NULL,
+	IsMarried int NOT NULL,
+	ContactNo varchar2(12) NULL,
+	EmailID varchar2(51) NULL,
+	BloodGroup varchar2(5) NULL,
+	EducationQualification varchar2(51) NULL,
+	OccupationId int NULL,
+	WorkingAddress varchar2(151) NULL,
+	BirthDate date NULL,
+	BirthPlace varchar2(51) NULL,
+	Gender int Not NULL,
+	FamilyId int NULL,
+	RelationId int NULL,
+	CONSTRAINT PK_Member_id PRIMARY KEY (MemberID),
+	CONSTRAINT fk_memberOccupation FOREIGN KEY (OccupationId) REFERENCES TblOccupation(OccupationID),
+	CONSTRAINT fk_memberFamily FOREIGN KEY (FamilyId) REFERENCES TblFamily(FamilyID),
+	CONSTRAINT fk_memberRealtion FOREIGN KEY (RelationId) REFERENCES TblRelation(RelationID)
+);
+Create TABLE TblNews
+(
+	NewsID NUMBER(22,0) NOT NULL,
+	NewsTitle varchar2(128) NOT NULL,
+	NewsDesc nvarchar2(1000) NOT NULL,
+	NewsAddedDate date default sysdate
+);

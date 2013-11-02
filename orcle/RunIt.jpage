@@ -1,0 +1,62 @@
+StateBean s=new StateDAO().getByStateName("Gujarat");
+System.out.println("State ID:"+s.getStateID());
+CityBean c=new CityBean();
+c.setCityName("Ahmedabad");
+c.setState(s);
+c=new CityDAO().insert(c);
+System.out.println("Done"+c.getCityID()); 
+
+System.out.print(Mail.makeEmail("jenil.shah135@gmail.com", "Test", "Test"));
+
+org.apache.commons.mail.SimpleEmail email = new org.apache.commons.mail.SimpleEmail();
+email.setHostName("localhost");
+email.addTo("jenil.shah135@gmail.com", "");
+email.setFrom("jenil.shah135@gmail.com", "");
+email.setSubject("Test message");
+email.setMsg("This is a simple test of commons-email");
+email.send();
+
+
+System.out.println(com.utility.Crypto.md5("Jenil"));
+
+
+System.out.print(new com.dao.CountryDAO().getCountryByID(1).getCountryName());
+
+
+ResultSetHandler<Object[]> h = new ResultSetHandler<Object[]>() {
+    public Object[] handle(ResultSet rs) throws SQLException {
+        if (!rs.next()) {
+            return null;
+        }
+    
+        ResultSetMetaData meta = rs.getMetaData();
+        int cols = meta.getColumnCount();
+        Object[] result = new Object[cols];
+
+        for (int i = 0; i < cols; i++) {
+        	System.out.print(rs.getObject(i + 1));
+            result[i] = rs.getObject(i + 1);
+        }
+
+        return result;
+    }
+};
+
+OracleDataSource ds = new OracleDataSource();
+ds.setDriverType("thin");
+ds.setServerName(Constants.getDBServerName());
+ds.setPortNumber(Constants.getDBPort());
+ds.setDatabaseName(Constants.getDatabaseName());
+ds.setUser(Constants.getDBUserName());
+ds.setPassword(Constants.getDBPassword());
+QueryRunner run = new QueryRunner(dataSource);
+
+Object[] result = run.query("SELECT * FROM Country", h);
+
+
+
+OracleDB db=new OracleDB();
+List<CountryBean> objCountryBeanList=db.getList("SELECT * FROM TblCountry",new CountryBean());
+System.out.print(objCountryBeanList.size());
+
+

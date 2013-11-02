@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>2.0</jspversion> 
+    <shortname>LoadSalt</shortname>
+    <info>Tag library for adding csrf token</info>
+    <tag>
+		<name>LoadSalt</name>
+		<tagclass>com.utility.LoadSalt</tagclass>
+		<bodycontent>empty</bodycontent>
+    </tag>
+</taglib>

@@ -1,0 +1,50 @@
+CREATE OR REPLACE TRIGGER trigger_delete_country
+BEFORE DELETE ON TblCountry FOR EACH ROW
+DECLARE
+BEGIN
+	DELETE FROM TblState WHERE CountryId=:old.CountryID;   
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_state
+BEFORE DELETE ON TblState FOR EACH ROW
+DECLARE
+BEGIN
+	DELETE FROM TblCity WHERE StateId=:old.StateID;   
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_city
+BEFORE DELETE ON TblCity FOR EACH ROW
+DECLARE
+BEGIN	
+	UPDATE TblAddress SET CityId=null WHERE CityId=:old.CityID;   
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_address
+BEFORE DELETE ON TblAddress FOR EACH ROW
+DECLARE
+BEGIN
+	UPDATE TblFamily SET CurrentAddressId=null WHERE CurrentAddressID=:old.AddressID;
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_occupation
+BEFORE DELETE ON TblOccupation FOR EACH ROW
+DECLARE
+BEGIN
+	UPDATE TblMember SET OccupationId=null WHERE OccupationID=:old.OccupationID;
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_relation
+BEFORE DELETE ON TblRelation FOR EACH ROW
+DECLARE
+BEGIN
+	UPDATE TblMember SET RelationId=null WHERE RelationID=:old.RelationID;
+END;
+/
+CREATE OR REPLACE TRIGGER trigger_delete_family
+BEFORE DELETE ON TblFamily FOR EACH ROW
+DECLARE
+BEGIN
+	DELETE FROM TblMember WHERE FamilyID=:old.FamilyID;
+	DELETE FROM TblLogin WHERE FamilyID=:old.FamilyID;
+END;
+/

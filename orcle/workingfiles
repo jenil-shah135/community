@@ -1,0 +1,49 @@
+<div class="editor-label">Mother Name:</div>
+<div class="editor-field"><input type="text" name="motherName" value="${param.motherName}" /></div>
+<div class="editor-label">Spouce Name:</div>
+<div class="editor-field"><input type="text" name="spouceName" value="" /></div>
+
+<div class="editor-label">Birth Date:</div>
+<div class="editor-field"><input type="date" name="birthDate" value="" /></div>
+
+<div class="editor-label">Birth Place:</div>
+<div class="editor-field"><input type="text" name="birthPlace" value="" /></div>
+
+<div class="editor-label">Blood Group:</div>
+<div class="editor-field">
+	<select name="bloodGroup">
+		<option value="">Select</option>
+		<option value="a+">A+</option>
+		<option value="a-">A-</option>
+		<option value="b+">B+</option>
+		<option value="b-">B-</option>
+		<option value="ab+">AB+</option>
+		<option value="ab-">AB-</option>
+		<option value="o+">O+</option>
+		<option value="o-">O-</option>
+	</select>
+</div>
+
+<div class="editor-label">Education Qualification:</div>
+<div class="editor-field"><input type="text" name="educationQualification" value="" /></div>
+
+<div class="editor-label">Occupasion:</div>
+<div class="editor-field">
+	<select name="occupasion">
+		<option value="">Select</option>
+		<c:forEach var="occupasion" items="${requestScope.occupationList}" >
+    		<option value="${country.getOccupasionID()}">${country.getOccupasionName()}</option>		
+   		</c:forEach>
+	</select>
+</div>
+
+<div class="editor-label">Working Address Street:</div>
+<div class="editor-field"><input type="text" name="workingAddressStreet" value="" /></div>
+<div class="editor-label">Working Address Area:</div>
+<div class="editor-field"><input type="text" name="workingAddressArea" value="" /></div>
+<div class="editor-label">Working Address City:</div>
+<div class="editor-field"><input type="text" name="workingAddressCity" value="" /></div>
+<div class="editor-label">Working Address State:</div>
+<div class="editor-field"><input type="text" name="workingAddressState" value="" /></div>
+<div class="editor-label">Working Address Country:</div>
+<div class="editor-field"><input type="text" name="workingAddressCountry" value="" /></div>

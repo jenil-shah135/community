@@ -1,0 +1,135 @@
+Create or replace PROCEDURE Insert_Country
+(
+	p_CountryName in varchar2,
+	p_CountryID out int
+)
+is
+BEGIN
+SELECT TblCountry_seq.NEXTVAL into p_CountryID FROM dual;
+INSERT INTO TblCountry(CountryID,CountryName) VALUES(p_CountryID,p_CountryName);
+END;
+/
+Create or replace PROCEDURE Insert_State
+(
+	p_StateName in varchar2,
+	p_CountryId in number,
+	p_StateID out number
+)
+is
+BEGIN
+SELECT TblState_seq.NEXTVAL into p_StateID FROM dual;
+INSERT INTO TblState(StateID,StateName,CountryId) VALUES(p_StateID,p_StateName,p_CountryId);
+END;
+/
+Create or replace PROCEDURE Insert_City
+(
+	p_CityName in varchar2,
+	p_StateId in int,
+	p_CityID out int
+)
+is
+BEGIN
+SELECT TblCity_seq.NEXTVAL into p_CityID FROM dual;
+INSERT INTO TblCity(CityID,CityName,StateId) VALUES(p_CityID,p_CityName,p_StateId);
+END;
+/
+Create or replace PROCEDURE Insert_Address
+(
+	p_Street in varchar2 default null,
+	p_Area in varchar2 default null,
+	p_CityId in int,
+	p_Pincode in varchar2 default null,
+	p_AddressID out int
+)
+is
+BEGIN
+SELECT TblAddress_seq.NEXTVAL into p_AddressID FROM dual;
+INSERT INTO TblAddress(AddressID,Street,Area,CityId,Pincode) VALUES(p_AddressID,p_Street,p_Area,p_CityId,p_Pincode);
+END;
+/
+Create or replace PROCEDURE Insert_Occupation
+(
+	p_OccupationName in varchar2,
+	p_OccupationID out int
+)
+is
+BEGIN
+SELECT TblOccupation_seq.NEXTVAL into p_OccupationID FROM dual;
+INSERT INTO TblOccupation(OccupationID,OccupationName) VALUES(p_OccupationID,p_OccupationName);
+END;
+/
+Create or replace PROCEDURE Insert_Relation
+(
+	p_RelationName in varchar2,
+	p_RelationID out int
+)
+is
+BEGIN
+SELECT TblRelation_seq.NEXTVAL into p_RelationID FROM dual;
+INSERT INTO TblRelation(RelationID,RelationName) VALUES(p_RelationID,p_RelationName);
+END;
+/
+Create or replace PROCEDURE Insert_Family
+(
+	p_NativeAddress in varchar2,
+	p_CurrentAddressId in int,
+	p_FamilyID out int
+)
+is
+BEGIN
+SELECT TblFamily_seq.NEXTVAL into p_FamilyID FROM dual;
+INSERT INTO TblFamily(FamilyID,NativeAddress,CurrentAddressId) VALUES(p_FamilyID,p_NativeAddress,p_CurrentAddressId);
+END;
+/
+Create or replace PROCEDURE Insert_Login
+(
+	p_Username in varchar2,
+	p_Password in varchar2,
+	p_UserType in int,
+	p_FamilyId in int default NULL,
+	p_LoginID out int
+)
+is
+BEGIN
+SELECT TblLogin_seq.NEXTVAL into p_LoginID FROM dual;
+INSERT INTO TblLogin(LoginID,Username,Password,UserType,FamilyId) VALUES(p_LoginID,p_Username,p_Password,p_UserType,p_FamilyId);
+END;
+/
+Create or replace PROCEDURE Insert_Member
+(
+	p_FirstName in varchar2,
+	p_MiddleName in varchar2,
+	p_LastName in varchar2,
+	p_IsMarried in int,
+	p_ContactNo in varchar2 default NULL,
+	p_EmailID in varchar2 default NULL,
+	p_BloodGroup in varchar2 default NULL,
+	p_EducationQualification in varchar2 default NULL,
+	p_OccupationId in int default NULL,
+	p_WorkingAddress in varchar2 default NULL,
+	p_BirthDate in date default NULL,
+	p_BirthPlace in varchar2 default NULL,
+	p_Gender in int,
+	p_FamilyId in int,
+	p_RelationId in int,
+	p_MemberID out int	
+)
+is
+BEGIN
+SELECT TblMember_seq.NEXTVAL into p_MemberID FROM dual;
+INSERT INTO TblMember(MemberID,FirstName,MiddleName,LastName,IsMarried,ContactNo,EmailID,BloodGroup,EducationQualification,OccupationId,WorkingAddress,BirthDate,BirthPlace,Gender,FamilyId,RelationId)
+VALUES(p_MemberID,p_FirstName,p_MiddleName,p_LastName,p_IsMarried,p_ContactNo,p_EmailID,p_BloodGroup,p_EducationQualification,p_OccupationId,p_WorkingAddress,p_BirthDate,p_BirthPlace,p_Gender,p_FamilyId,p_RelationId);
+END;
+/
+Create or replace PROCEDURE Insert_News
+(
+	p_NewsTitle in varchar2,
+	p_NewsDesc in nvarchar2,
+	p_NewsID out int
+)
+is
+BEGIN
+SELECT TblNews_seq.NEXTVAL into p_NewsID FROM dual;
+INSERT INTO TblNews(NewsID,NewsTitle,NewsDesc) VALUES(p_NewsID,p_NewsTitle,p_NewsDesc);
+END;
+/
